@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OcelotBasic;
 
 namespace Ocelot.Web
 {
@@ -20,7 +21,7 @@ namespace Ocelot.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor();
-        
+            services.AddHostedService<GatewayHostedService>();
             // services.AddAuthentication(options =>
             //     {
             //         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;

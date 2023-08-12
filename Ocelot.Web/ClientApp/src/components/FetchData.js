@@ -53,7 +53,7 @@ export class FetchData extends Component {
 
   async populateWeatherData() {
     const token = await authService.getIDToken();
-    const response = await fetch('https://localhost:5001/posts', {
+    const response = await fetch('/api/posts', {
       headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
     });
     const data = await response.json();

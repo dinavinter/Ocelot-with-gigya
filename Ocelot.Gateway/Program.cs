@@ -23,32 +23,19 @@ namespace OcelotBasic
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    config
-                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
-                        .AddJsonFile("appsettings.json", true, true)
-                        .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
-                        .AddJsonFile("ocelot.json")
-                        .AddEnvironmentVariables();
+                    // config
+                    //     .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                    //     .AddJsonFile("appsettings.json", true, true)
+                    //     .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
+                    //     .AddOcelot(hostingContext.HostingEnvironment)
+                    //     .AddEnvironmentVariables();
                 })
                 .ConfigureServices(s =>
                 {
-                    s.AddCors(x=>x.AddDefaultPolicy(o=>o.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin())); 
-                    s.AddOcelot();
-                    var authenticationProviderKey = "TestKey";
-                     
-                    s.AddAuthentication()
-                        .AddJwtBearer(authenticationProviderKey, configureOptions: options =>
-                        {
-                             options.Authority = "https://fidm.us1.gigya.com/oidc/op/v1.0/3__NKd98KtcRCL_Z98TO7bbTtMhZqe83A4hOjMA2wblxL8PAoduwgW9FTvdQ6OqYIB"; // IDENTITY SERVER URL
-                                                                                                                                                               
-                             options.TokenValidationParameters = new TokenValidationParameters
-                             {
-                                 ValidIssuer = "https://oauth.connect.com/",
-                                 ValidateIssuer = false,
-                                 ValidateAudience = false, 
-                             };   
-                         });
-
+                    // s.AddCors(x=>x.AddDefaultPolicy(o=>o.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
+                    // s.AddGigyaOidc();
+                    // s.AddOcelot();
+                    
                     // s.AddAuthentication()
                     //     .AddOpenIdConnect(authenticationProviderKey, configureOptions: options =>
                     //     {
@@ -58,9 +45,8 @@ namespace OcelotBasic
                     //         options.ClientSecret = "poVgJrnr3fn7bxq-fVkabe-EDXPYmREK3AX1alWO3UwgLb4BeJ-dALONF5xJhFRXZRZn9QT79V-vK6KICyGcxg";
                     //
                     //     });
-                    
-                    // s.AddAdministration("/administration", "secret");
 
+                    // s.AddAdministration("/administration", "secret");
                 })
                 .ConfigureLogging((hostingContext, logging) =>
                 {
@@ -69,13 +55,15 @@ namespace OcelotBasic
                 .UseIISIntegration()
                 .Configure(app =>
                 { 
-                    app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
-                        .UseAuthentication() 
-                        .UseOcelot()
-                        .Wait();
+                    // app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
+                    //     .UseAuthentication() 
+                    //     .UseOcelot()
+                    //     .Wait();
                 })
                 .Build()
                 .Run();
         }
+
+     
     }
 }
